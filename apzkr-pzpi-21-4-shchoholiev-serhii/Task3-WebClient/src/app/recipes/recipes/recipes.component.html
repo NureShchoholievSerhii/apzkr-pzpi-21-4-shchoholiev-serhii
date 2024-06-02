@@ -1,0 +1,48 @@
+<div class="container my-3">
+    <div class="d-flex justify-content-between">
+        <h2 class="m-0">{{ 'RECIPES' | translate }}</h2>
+        <a routerLink="/addrecipe" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i> {{ 'ADD_RECIPE' | translate }}
+        </a>
+    </div>
+
+    <hr />
+
+    <div *ngIf="isLoading" class="loading-spinner text-secondary">
+        <i class="fas fa-spinner fa-spin"></i> {{ 'LOADING' | translate }}
+    </div>
+
+    <div *ngIf="!isLoading">
+        <div *ngIf="recipes.length">
+            <div class="container-fluid">
+                <div class="row gap-3">
+                    <div *ngFor="let recipe of recipes" class="col-12 col-md-12 col-lg-12 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-horizontal d-flex">
+                                <div *ngIf="displayThumbnail(recipe)" class="img-square-wrapper">
+                                    <img [src]="recipe.thumbnail! | imageUrl" class="card-img-left"
+                                        alt="{{ recipe.name }}">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ recipe.name }}</h5>
+                                    <div>
+                                        <span class="badge bg-secondary me-1" *ngFor="let category of recipe.categories">{{ category.name }}</span>
+                                    </div>
+                                    <a routerLink="/recipes/{{ recipe.id }}" class="btn btn-primary mt-2" style="font-size: 12px; padding: 5px 8px;">
+                                        <i class="fas fa-info-circle"></i> {{ 'DETAILS' | translate }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            
+            <div class="d-flex justify-content-center">
+                <app-pagination class="my-3" [currentPage]="currentPage" [totalPages]="totalPages"
+                    (pageChange)="setPage(+$event)"></app-pagination>
+            </div>
+        </div>
+        <div class="text-secondary" *ngIf="!recipes.length">{{ 'NO_RECIPES_FOUND' | translate }}</div>
+    </div>
+</div>

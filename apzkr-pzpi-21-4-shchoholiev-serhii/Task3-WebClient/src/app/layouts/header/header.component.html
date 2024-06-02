@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/statistics">
+            <i class="fa-solid fa-boxes-stacked text-primary"></i> Ingredients Tracker
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item" *ngIf="isUserInGroup() && this.globalUser?.roles?.includes('Owner')">
+                    <a class="nav-link active" routerLink="/group">{{ 'NAVBAR.GROUP' | translate }}</a>
+                </li>
+                <li class="nav-item" *ngIf="!isUserInGroup()">
+                    <a class="nav-link active" routerLink="/creategroup">{{ 'NAVBAR.CREATE_GROUP' | translate }}</a>
+                </li>
+                <li class="nav-item" *ngIf="isUserInGroup() && this.globalUser?.roles?.includes('Owner')">
+                    <a class="nav-link" routerLink="/devices">{{ 'NAVBAR.DEVICES' | translate }}</a>
+                </li>
+                <li class="nav-item" *ngIf="isUserInGroup()">
+                    <a class="nav-link" routerLink="/products">{{ 'NAVBAR.PRODUCTS' | translate }}</a>
+                </li>
+                <li class="nav-item" *ngIf="this.globalUser?.roles?.includes('Admin')">
+                    <a class="nav-link" routerLink="/admin/users">{{ 'NAVBAR.USERS' | translate }}</a>
+                </li>
+                <li class="nav-item" *ngIf="this.globalUser?.roles?.includes('Admin')">
+                    <a class="nav-link" routerLink="/admin/createdevice">{{ 'NAVBAR.CREATE_DEVICE' | translate }}</a>
+                </li>
+            </ul>
+
+            <form class="d-flex" style="margin-left: auto; margin-right: auto; width: 350px;" (ngSubmit)="searchRecipes()">
+                <input class="form-control me-2" type="search" placeholder="{{ 'NAVBAR.SEARCH_PLACEHOLDER' | translate }}" aria-label="Search" [(ngModel)]="searchQuery" name="searchQuery">
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+
+            <span class="navbar-text d-flex gap-2 nav-item align-items-center">
+                {{ 'NAVBAR.WELCOME' | translate }} {{ globalUser?.email }}
+                <button class="btn btn-link nav-link ms-1" (click)="onLogout()">{{ 'NAVBAR.LOGOUT' | translate }}</button>
+            </span>
+        </div>
+    </div>
+</nav>

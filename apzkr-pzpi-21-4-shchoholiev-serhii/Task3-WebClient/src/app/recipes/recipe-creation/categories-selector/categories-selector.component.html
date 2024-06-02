@@ -1,0 +1,29 @@
+<div>
+<div class="ingredient-selector">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control"
+            placeholder="{{ 'NEW_CATEGORY_PLACEHOLDER' | translate }}" [(ngModel)]="newCategoryName">
+        <button class="btn btn-primary" type="button" (click)="addCategory()">{{
+            'ADD_CATEGORY' | translate }}</button>
+    </div>
+
+    <input type="text" class="form-control mb-3" [(ngModel)]="searchQuery" (ngModelChange)="handleSearchChange()"
+        placeholder="{{ 'SEARCH_CATEGORIES' | translate }}">
+
+    <div *ngIf="isLoading" class="loading-spinner text-secondary">
+        <i class="fas fa-spinner fa-spin"></i> {{ 'LOADING' | translate }}
+    </div>
+
+    <div *ngIf="!isLoading">
+        <div *ngIf="categories.length" class="mb-2">
+            <ul class="list-group">
+                <li *ngFor="let category of categories" class="list-group-item">
+                    <span class="me-2" (click)="toggleSelection(category)">{{ category.name }}</span>
+                    <span class="me-2" *ngIf="isSelected(category)" class="badge bg-primary">Selected</span>
+                </li>
+            </ul>
+        </div>
+        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
+            (pageChange)="setPage(+$event)"></app-pagination>
+    </div>
+</div>

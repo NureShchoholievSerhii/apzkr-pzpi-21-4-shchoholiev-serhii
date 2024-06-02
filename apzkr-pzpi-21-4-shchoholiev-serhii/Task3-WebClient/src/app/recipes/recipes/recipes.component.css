@@ -1,0 +1,9 @@
+.img-square-wrapper {
+    flex: 0 0 auto; /* Prevents the image container from growing */
+    width: 150px; /* Fixed width for the image container */
+}
+
+.card-img-left {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+}

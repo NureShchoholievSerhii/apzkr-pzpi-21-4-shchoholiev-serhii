@@ -1,0 +1,7 @@
+<div class="d-flex flex-column min-vh-100">
+  <app-header *ngIf="showHeaderAndFooter"></app-header>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer class="mt-auto" *ngIf="showHeaderAndFooter"></app-footer>
+</div>

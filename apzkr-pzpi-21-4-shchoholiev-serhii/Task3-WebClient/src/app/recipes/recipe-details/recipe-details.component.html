@@ -1,0 +1,42 @@
+<div class="container my-3">
+    <div *ngIf="isLoading" class="loading-spinner text-secondary">
+        <i class="fas fa-spinner fa-spin"></i> {{ 'LOADING' | translate }}
+    </div>
+
+    <div *ngIf="!isLoading">
+        <div *ngIf="recipe; else noRecipeFound">
+            <div class="d-flex justify-content-between gap-5 mb-3">
+                <h2 class="m-0">{{ recipe.name | translate }}</h2>
+                <div class="d-flex justify-content-between gap-2">
+                    <button class="btn btn-success" (click)="cookRecipe()">
+                        <i class="fas fa-utensils me-1"></i> {{ 'COOK_RECIPE' | translate }}
+                    </button>
+                    <a [routerLink]="['/recipes', recipe.id, 'edit']" class="btn btn-primary me-1">
+                        <i class="fas fa-edit me-1"></i> {{ 'EDIT' | translate }}
+                    </a>
+                    <button class="btn btn-danger" (click)="deleteRecipe()">
+                        <i class="fas fa-trash me-1"></i> {{ 'DELETE' | translate }}
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between gap-5">
+                <div>
+                    <p>{{ recipe.text | translate }}</p>
+                    <h3>{{ 'INGREDIENTS' | translate }}</h3>
+                    <ul>
+                        <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient.name }} ({{ ingredient.count }})</li>
+                    </ul>
+                    <h3>{{ 'CATEGORIES' | translate }}</h3>
+                    <div *ngFor="let category of recipe.categories" class="badge bg-secondary me-1">
+                        {{ category.name | translate }}
+                    </div>
+                </div>
+                <img *ngIf="recipe.thumbnail" [src]="recipe.thumbnail | imageUrl:false" alt="{{ recipe.name }}" class="rounded" style="width: 40%;">
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noRecipeFound>
+        <div class="text-secondary">{{ 'NO_RECIPE_FOUND' | translate }}</div>
+    </ng-template>
+</div>

@@ -1,0 +1,37 @@
+<div class="container mt-4">
+    <h2 class="mb-0">{{ (isEditing ? 'UPDATE_RECIPE_TITLE' : 'CREATE_RECIPE_TITLE') | translate }}</h2>
+    <p class="text-secondary mt-0">{{ (isEditing ? 'UPDATE_RECIPE_INFO' : 'CREATE_RECIPE_INFO') | translate }}</p>
+    <form #recipeForm="ngForm" (ngSubmit)="onSubmit()">
+      
+      <div class="mb-3">
+        <label for="recipeName" class="form-label">{{ 'NAME' | translate }}</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="recipe.name" name="name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="thumbnail" class="form-label">{{ 'THUMBNAIL' | translate }}</label>
+        <input type="file" class="form-control" id="thumbnail" (change)="handleFileInput($event)">
+      </div>
+
+      <div class="mb-3">
+        <label for="recipeText" class="form-label">{{ 'DESCRIPTION' | translate }}</label>
+        <textarea class="form-control" id="text" [(ngModel)]="recipe.text" name="text" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="ingredients" class="form-label">{{ 'INGREDIENTS' | translate }}</label>
+        <app-ingredient-selector (onSelect)="addIngredients($event)" [selectedIngredients]="recipe.ingredients"></app-ingredient-selector>
+      </div>
+
+      <div class="mb-3">
+        <label for="categories" class="form-label">{{ 'CATEGORIES' | translate }}</label>
+        <app-categories-selector (onSelect)="addCategories($event)" [selectedCategories]="recipe.categories"></app-categories-selector>
+      </div>
+
+      <hr/>
+      <button type="submit" class="btn btn-primary mb-3" [disabled]="!recipeForm.valid">
+        {{ (isEditing ? 'UPDATE_RECIPE_BUTTON' : 'CREATE_RECIPE_BUTTON') | translate }}
+      </button>
+      <div *ngIf="error" class="text-danger mt-2">{{ error }}</div>
+    </form>
+  </div>

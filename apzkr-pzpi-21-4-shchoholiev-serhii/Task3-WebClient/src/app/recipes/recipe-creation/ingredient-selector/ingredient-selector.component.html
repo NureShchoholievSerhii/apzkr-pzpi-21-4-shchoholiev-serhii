@@ -1,0 +1,20 @@
+<div class="ingredient-selector">
+    <input type="text" class="form-control mb-3" [(ngModel)]="searchQuery" (ngModelChange)="handleSearchChange()" placeholder="{{ 'SEARCH_INGREDIENTS' | translate }}">
+    <div *ngIf="isLoading" class="loading-spinner text-secondary">
+        <i class="fas fa-spinner fa-spin"></i> {{ 'LOADING' | translate }}
+    </div>
+
+    <div *ngIf="!isLoading" >
+        <div *ngIf="ingredients.length" class="mb-2">
+            <ul class="list-group">
+              <li *ngFor="let ingredient of ingredients" class="list-group-item">
+                <span class="me-2" (click)="toggleIngredientSelection(ingredient)">{{ ingredient.name }}</span>
+                <span class="me-2" *ngIf="isSelected(ingredient)" class="badge bg-primary">Selected</span>
+                <input *ngIf="isSelected(ingredient)" class="form-check-input ms-2" type="number" [(ngModel)]="ingredient.count" style="width: 50px; height: 100%;">
+              </li>
+            </ul>
+          </div>
+          <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="setPage(+$event)"></app-pagination>
+    </div>
+  </div>
+  

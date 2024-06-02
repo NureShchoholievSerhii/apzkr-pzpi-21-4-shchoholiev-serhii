@@ -1,0 +1,15 @@
+build==1.0.3
+certifi==2023.11.17
+charset-normalizer==3.3.2
+colorzero==2.0
+gpiozero==1.6.2
+idna==3.4
+importlib-metadata==6.8.0
+packaging==23.2
+Pillow==10.1.0
+pyproject_hooks==1.0.0
+requests==2.31.0
+RPi.GPIO==0.7.1
+tomli==2.0.1
+urllib3==2.1.0
+zipp==3.17.0
